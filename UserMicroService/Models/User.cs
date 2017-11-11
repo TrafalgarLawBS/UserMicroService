@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using UserMicroService.Util;                            // zasto ne radi ?
+using static UserMicroService.Util.ActiveStateEnum;     // ??
 
 namespace UserMicroService.Models
 {
@@ -15,7 +17,12 @@ namespace UserMicroService.Models
         public string CityName { get; set; }
         public string CountryName { get; set; }
         public string Phone { get; set; }
-        public bool Active { get; set; }
+        public Active Active { get; set; }
+
+        public override string ToString()
+        {
+            return "Id: " + Id.ToString() + "Name: " + Name;
+        }
 
     }
 }

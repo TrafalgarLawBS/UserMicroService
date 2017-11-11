@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Web;
 using UserMicroService.Models;
@@ -36,16 +37,27 @@ namespace UserMicroService.DataAccess
         }
 
         public static User AddNewUser(User user) {
+            foreach (User u in listOfUsers)
+            {
+                if (u.Id == user.Id) {
+                    Debug.WriteLine("User with this id already exists in database : /n {0}", u.ToString());
+
+                    return u;
+                }
+            }
             listOfUsers.Add(user);
+            Debug.WriteLine("User: {0} successfully added to database /n", user.ToString());
             return GetUserById(user.Id);
         }
 
         public static void ModifyUser(User u) {
 
             User user = GetUserById(u.Id);
-
-            listOfUsers.Remove(user);
-            listOfUsers.Add(u);            
+            if (user != null) {
+                listOfUsers.Remove(user);
+                listOfUsers.Add(u);
+            }
+                        
         }
 
         public static void DeleteUser(int id) {
